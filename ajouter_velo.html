@@ -34,7 +34,7 @@
     <legend>Options</legend>
     <div id="option-div">
       <span>
-        <input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button>
+        <input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button onclick="deleteOption(this)">-</button>
       </span>
     </div>
     <button id="" onclick="addOption()">Ajouter une option</button>
@@ -84,10 +84,13 @@
         const option = `<span>
                            <input type="text" placeholder="Nom">
                            <input type="text" placeholder="Prix">
-                           <button>-</button>
+                           <button onclick="deleteOption(this)">-</button>
                          </span>`;
-        console.log(option);
         $("option-div").insertAdjacentHTML('afterend', option);
+    }
+
+    function deleteOption(node) {
+        node.parentNode.remove();
     }
 
 </script>

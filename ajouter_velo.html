@@ -17,22 +17,22 @@
 
 <h1>Ajouter un vélo</h1>
 <label>Nom</label>
-<input type="text" id="bike-name" placeholder="Nom">
+<input type="text" id="bikeName" placeholder="Nom">
 <br/>
 <label>Catégorie</label>
-<select id="bike-category"></select>
+<select id="bikeCategory"></select>
 <button id="" onclick="showAddCategory()">+</button>
-<span id="add-category-span" style="visibility:hidden">
-  <input type="text" id="add-category-name">
+<span id="addCategorySpan" style="visibility:hidden">
+  <input type="text" id="addCategoryName">
   <button id="" onclick="addCategory()">Ajouter</button>
 </span>
 <br/>
 <label>Prix</label>
-<input type="text" id="bike-price" placeholder="Prix">
+<input type="text" id="bikePrice" placeholder="Prix">
 <br/>
 <fieldset>
     <legend>Options</legend>
-    <div id="option-div">
+    <div id="optionDiv">
       <span>
         <input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button onclick="deleteOption(this)">-</button>
       </span>
@@ -43,21 +43,20 @@
 <button id="" onclick="addBike()">Enregistrer</button>
 
 <script>
-    const $ = document.getElementById.bind(document);
 
     refreshSelect();
 
     function showAddCategory() {
-        $("add-category-span").style.visibility = "visible";
+        addCategorySpan.style.visibility = "visible";
     }
 
     function hideAddCategory() {
-        $("add-category-span").style.visibility = "hidden";
+        addCategorySpan.style.visibility = "hidden";
     }
 
     function addCategory() {
-        const categoryName = $("add-category-name").value;
-        $("bike-category").add(new Option(categoryName));
+        const categoryName = addCategoryName.value;
+        bikeCategory.add(new Option(categoryName));
         saveCategory(categoryName);
         refreshSelect();
         hideAddCategory();
@@ -75,8 +74,7 @@
         const categoriesJSON = window.localStorage.getItem("categories");
         const categories = JSON.parse(categoriesJSON) || [];
         categories.sort();
-        const selectCategories = $("bike-category");
-        categories.forEach(category => selectCategories.add(new Option(category)));
+        bikeCategory.innerHTML = categories.map(category => `<option>${category}</option>`);
     }
 
     function addOption() {
@@ -85,7 +83,7 @@
                            <input type="text" placeholder="Prix">
                            <button onclick="deleteOption(this)">-</button>
                          </span>`;
-        $("option-div").insertAdjacentHTML('afterend', option);
+        optionDiv.insertAdjacentHTML('beforeend', option);
     }
 
     function deleteOption(node) {
@@ -96,7 +94,7 @@
 
         function getCurrentOptions() {
             //Convert HTMLCollection to Array
-            const optionsNode = [...$("option-div").children];
+            const optionsNode = [...optionDiv.children];
             //Convert nodes into objects
             return optionsNode.map(optionNode => {
                 return {
@@ -107,9 +105,9 @@
         }
 
         const bike = {
-            "name": $("bike-name").value,
-            "price": $("bike-price").value,
-            "category": $("bike-category").value,
+            "name": bikeName.value,
+            "price": bikePrice.value,
+            "category": bikeCategory.value,
             "options": getCurrentOptions(),
         };
 

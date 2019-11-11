@@ -4,6 +4,7 @@
     <list default="true" id="0cbced48-16e4-4604-b6ab-51ae88b883ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajouter_velo.html" beforeDir="false" afterPath="$PROJECT_DIR$/ajouter_velo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/velo.html" beforeDir="false" afterPath="$PROJECT_DIR$/velo.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +50,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573506818463</updated>
-      <workItem from="1573506825548" duration="5682000" />
+      <workItem from="1573506825548" duration="7100000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1573508118197</created>
@@ -86,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573511628712</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ref without $">
+      <created>1573512541552</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573512541552</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +119,7 @@
     <MESSAGE value="2" />
     <MESSAGE value="ex3" />
     <MESSAGE value="ex4" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex4" />
+    <MESSAGE value="ref without $" />
+    <option name="LAST_COMMIT_MESSAGE" value="ref without $" />
   </component>
 </project>

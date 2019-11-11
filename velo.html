@@ -1,10 +1,39 @@
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>Vélos</title>
 <style>
-  body {
-    font : .8em "typewriter", sans-serif;
-  }
+    body {
+        font: .8em "typewriter", sans-serif;
+    }
 </style>
 <h1>Commande de vélos</h1>
 <h2>En stock</h2>
-<div id=""></div>
+<div id="bikes">
+
+</div>
+
+<script>
+
+    showBikes();
+
+    function showBikes() {
+        bikes.innerHTML = getBikes().map(bike => {
+            return `<div>
+                        <p>${bike.category} ${bike.name} ${bike.price}</p>
+                        <ul>${getOptions(bike)}</ul>
+                    </div>`
+        }).join('');
+    }
+
+    function getBikes() {
+        const bikesJSON = window.localStorage.getItem("bikes") || "[]";
+        return JSON.parse(bikesJSON);
+    }
+
+    function getOptions(bike) {
+        if (bike.options.length > 0)
+            return bike.options.map(option => `<li>${option.name} ${option.price}</li>`).join('');
+        else
+            return `<li>Aucune option disponible</li>`;
+    }
+
+</script>

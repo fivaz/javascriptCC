@@ -117,8 +117,8 @@
     function saveBike(bike) {
         console.log("saving...");
         console.log(bike);
-        const bikesJSON = window.localStorage.getItem("bikes");
-        const bikes = JSON.parse(bikesJSON) || [];
+        const bikesJSON = window.localStorage.getItem("bikes") || "[]";
+        const bikes = JSON.parse(bikesJSON);
         bikes.push(bike);
         const newBikesJSON = JSON.stringify(bikes);
         window.localStorage.setItem("bikes", newBikesJSON);

@@ -32,9 +32,12 @@
 <br/>
 <fieldset>
     <legend>Options</legend>
-    <div id=""><span><input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button></span>
+    <div id="option-div">
+      <span>
+        <input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button>
+      </span>
     </div>
-    <button id="">Ajouter une option</button>
+    <button id="" onclick="addOption()">Ajouter une option</button>
 </fieldset>
 <br/>
 <button id="">Enregistrer</button>
@@ -75,6 +78,16 @@
         categories.sort();
         const selectCategories = $("select-categories");
         categories.forEach(category => selectCategories.add(new Option(category)));
+    }
+
+    function addOption() {
+        const option = `<span>
+                           <input type="text" placeholder="Nom">
+                           <input type="text" placeholder="Prix">
+                           <button>-</button>
+                         </span>`;
+        console.log(option);
+        $("option-div").insertAdjacentHTML('afterend', option);
     }
 
 </script>

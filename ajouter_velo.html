@@ -1,37 +1,55 @@
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>Ajouter un vélo</title>
 <style>
-  body {
-    font : .8em "typewriter", sans-serif;
-  }
-  label {
-    width: 100px;
-    display: inline-block;
-  }
-  fieldset {
-    width:400px;
-  }
+    body {
+        font: .8em "typewriter", sans-serif;
+    }
+
+    label {
+        width: 100px;
+        display: inline-block;
+    }
+
+    fieldset {
+        width: 400px;
+    }
 </style>
 
 <h1>Ajouter un vélo</h1>
 <label>Nom</label>
 <input type="text" id="" placeholder="Nom">
-<br />
+<br/>
 <label>Catégorie</label>
-<select id=""></select>
-<button id="">+</button>
-<span id="" style="visibility:hidden">
-  <input type="text" id="">
-  <button id="">Ajouter</button>
+<select id="select-categories"></select>
+<button id="" onclick="showAddCategory()">+</button>
+<span id="add-category-span" style="visibility:hidden">
+  <input type="text" id="add-category-name">
+  <button id="" onclick="addCategory()">Ajouter</button>
 </span>
-<br />
+<br/>
 <label>Prix</label>
 <input type="text" id="" placeholder="Prix">
-<br />
+<br/>
 <fieldset>
-  <legend>Options</legend>
-  <div id=""><span><input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button></span></div>
-  <button id="">Ajouter une option</button>
+    <legend>Options</legend>
+    <div id=""><span><input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button></span>
+    </div>
+    <button id="">Ajouter une option</button>
 </fieldset>
-<br />
+<br/>
 <button id="">Enregistrer</button>
+
+<script>
+
+    const $ = document.getElementById.bind(document);
+
+    function showAddCategory() {
+        $("add-category-span").style.visibility = "visible";
+    }
+
+    function addCategory() {
+        const categoryName = $("add-category-name").value;
+        $("select-categories").add(new Option(categoryName));
+    }
+
+</script>

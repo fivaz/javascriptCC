@@ -17,10 +17,10 @@
 
 <h1>Ajouter un vélo</h1>
 <label>Nom</label>
-<input type="text" id="" placeholder="Nom">
+<input type="text" id="bike-name" placeholder="Nom">
 <br/>
 <label>Catégorie</label>
-<select id="select-categories"></select>
+<select id="bike-category"></select>
 <button id="" onclick="showAddCategory()">+</button>
 <span id="add-category-span" style="visibility:hidden">
   <input type="text" id="add-category-name">
@@ -28,7 +28,7 @@
 </span>
 <br/>
 <label>Prix</label>
-<input type="text" id="" placeholder="Prix">
+<input type="text" id="bike-price" placeholder="Prix">
 <br/>
 <fieldset>
     <legend>Options</legend>
@@ -40,10 +40,9 @@
     <button id="" onclick="addOption()">Ajouter une option</button>
 </fieldset>
 <br/>
-<button id="">Enregistrer</button>
+<button id="" onclick="addBike()">Enregistrer</button>
 
 <script>
-
     const $ = document.getElementById.bind(document);
 
     refreshSelect();
@@ -58,7 +57,7 @@
 
     function addCategory() {
         const categoryName = $("add-category-name").value;
-        $("select-categories").add(new Option(categoryName));
+        $("bike-category").add(new Option(categoryName));
         saveCategory(categoryName);
         refreshSelect();
         hideAddCategory();
@@ -76,7 +75,7 @@
         const categoriesJSON = window.localStorage.getItem("categories");
         const categories = JSON.parse(categoriesJSON) || [];
         categories.sort();
-        const selectCategories = $("select-categories");
+        const selectCategories = $("bike-category");
         categories.forEach(category => selectCategories.add(new Option(category)));
     }
 
@@ -91,6 +90,40 @@
 
     function deleteOption(node) {
         node.parentNode.remove();
+    }
+
+    function addBike() {
+
+        function getCurrentOptions() {
+            //Convert HTMLCollection to Array
+            const optionsNode = [...$("option-div").children];
+            //Convert nodes into objects
+            return optionsNode.map(optionNode => {
+                return {
+                    "name": optionNode.getElementsByTagName("input")[0].value,
+                    "price": optionNode.getElementsByTagName("input")[1].value,
+                }
+            });
+        }
+
+        const bike = {
+            "name": $("bike-name").value,
+            "price": $("bike-price").value,
+            "category": $("bike-category").value,
+            "options": getCurrentOptions(),
+        };
+
+        saveBike(bike);
+    }
+
+    function saveBike(bike) {
+        console.log("saving...");
+        console.log(bike);
+        const bikesJSON = window.localStorage.getItem("bikes");
+        const bikes = JSON.parse(bikesJSON) || [];
+        bikes.push(bike);
+        const newBikesJSON = JSON.stringify(bikes);
+        window.localStorage.setItem("bikes", newBikesJSON);
     }
 
 </script>

@@ -1,24 +1,42 @@
 <meta charset="utf-8"/>
 <button id="" onclick="augmenter()">Augmenter</button>
-<button id="">Diminuer</button>
-<button id="">Arrêter</button>
+<button id="" onclick="diminuer()">Diminuer</button>
+<button id="" onclick="arreter()">Arrêter</button>
 <br/>
 <canvas id="canvas" width="300" height="300"></canvas>
 
 <script>
+
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = "orange";
+    let tm;
+    let sens = 1;
+
+    animation();
+
+    function animation() {
+        let diameter = 10;
+        tm = setInterval(_ => {
+            diameter += sens;
+            if (diameter < 0)
+                diameter = 0;
+            ctx.clearRect(0, 0, 300, 300);
+            ctx.beginPath();
+            ctx.arc(150, 150, diameter / 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }, 50);
+    }
+
+    function arreter() {
+        clearInterval(tm);
+    }
+
     function augmenter() {
-
+        sens = 1;
     }
 
-    circle();
-
-    function circle() {
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = "orange";
-        ctx.clearRect(0, 0, 300, 300);
-        ctx.beginPath();
-        ctx.arc(150, 150, 5, 0, 2 * Math.PI);
-        ctx.fill();
-        // ctx.beginPath();
+    function diminuer() {
+        sens = -1
     }
+
 </script>

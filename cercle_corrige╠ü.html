@@ -1,0 +1,49 @@
+<meta charset="utf-8" />
+<button id="augmenter">Augmenter</button>
+<button id="diminuer">Diminuer</button>
+<button id="arreter">Arrêter</button>
+<br />
+<canvas id="monCanvas" width="300" height="300"></canvas>
+
+<script>
+  let diametre = 10;
+  let sens = 1;
+  let delai = 50;
+  let tm;
+  let ctx = monCanvas.getContext('2d');
+  ctx.fillStyle="orange";
+
+
+  arreter.addEventListener('click', _=>{
+    clearTimeout(tm);
+  });
+
+  augmenter.addEventListener('click', _=>{
+    clearTimeout(tm);
+    sens = 1;
+    animer();
+  });
+
+  diminuer.addEventListener('click', _=>{
+    clearTimeout(tm);
+    sens = -1;
+    animer();
+  });
+
+  animer();
+
+  function animer() {
+    tm = setInterval(_=>{
+      diametre += sens;
+      if (diametre<0) diametre = 0;
+      ctx.clearRect(0, 0, 300, 300);
+      ctx.beginPath();
+      ctx.arc(150, 150, diametre, 0, 2*Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+    }, delai)
+  }
+
+
+
+</script>

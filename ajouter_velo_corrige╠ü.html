@@ -1,0 +1,134 @@
+<meta charset="utf-8" />
+<title>Ajouter un vélo</title>
+<style>
+  body {
+    font : .8em "typewriter", sans-serif;
+  }
+  label {
+    width: 100px;
+    display: inline-block;
+  }
+  fieldset {
+    width:400px;
+  }
+</style>
+<script>
+  let categories = [];
+  window.addEventListener('load', _=>{
+    ajouter_categorie.addEventListener('click', _=>{
+      nouvelle_categorie.style.visibility = "visible";
+    })
+    enregistrer_categorie.addEventListener('click', _=>{
+      if (nom_categorie.value.length>0){
+        ajouterCategorie(nom_categorie.value);
+        afficherCategories();
+      }
+      nouvelle_categorie.style.visibility = "hidden";
+    })
+    ajouter_option.addEventListener('click', _=>{
+      ajouterLigneOption();
+    })
+    options.addEventListener('click', evt=>{
+      if (evt.target.nodeName=='BUTTON') {
+        supprimerLigneOption(evt.target);
+      }
+    })
+    enregistrer.addEventListener('click', _=>{
+      ajouterVelo();
+    })
+    lireCategories();
+    afficherCategories();
+  })
+
+  function lireCategories() {
+    if (localStorage.getItem('categories')) {
+      categories = JSON.parse(localStorage.getItem('categories'));
+    }
+  }
+  function ajouterCategorie(categorie) {
+    categories.push(categorie);
+    categories.sort();
+    localStorage.setItem('categories', JSON.stringify(categories));
+  }
+
+  function afficherCategories() {
+    while (categorie.hasChildNodes()) {
+      categorie.removeChild(categorie.firstChild);
+    }
+    categorie.appendChild(document.createElement('option'));
+    categories.forEach(c=>{
+      let opt = document.createElement('option');
+      opt.appendChild(document.createTextNode(c));
+      categorie.appendChild(opt);
+    })
+  }
+
+  function ajouterLigneOption() {
+    let span = document.createElement('span');
+    let input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', 'Nom');
+    span.appendChild(input);
+    input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', 'Prix');
+    span.appendChild(input);
+    let button = document.createElement('button');
+    button.appendChild(document.createTextNode('-'));
+    span.appendChild(button);
+    options.appendChild(span);
+  }
+
+  function supprimerLigneOption(ligne) {
+    ligne.parentNode.parentNode.removeChild(ligne.parentNode);
+  }
+
+  function ajouterVelo() {
+    let velo = {};
+    velo.nom = nom.value;
+    velo.categorie = categorie.value;
+    velo.prix = prix.value;
+    velo.options = lireOptions();
+    let velos = [];
+    if (localStorage.getItem('velos')) {
+      velos = JSON.parse(localStorage.getItem('velos'));
+    }
+    velos.push(velo);
+    localStorage.setItem('velos', JSON.stringify(velos));
+
+  }
+
+  function lireOptions() {
+    let listeOptions = [];
+    for (option of options.children) {
+      let opt = { nom:option.firstChild.value,
+                  prix:option.children[1].value
+                };
+      listeOptions.push(opt);
+    }
+    return listeOptions;
+  }
+
+</script>
+<h1>Ajouter un vélo</h1>
+<label>Nom</label>
+<input type="text" id="nom" placeholder="Nom">
+<br />
+<label>Catégorie</label>
+<select id="categorie"></select>
+<button id="ajouter_categorie">+</button>
+<span id="nouvelle_categorie" style="visibility:hidden">
+  <input type="text" id="nom_categorie">
+  <button id="enregistrer_categorie">Ajouter</button>
+</span>
+<br />
+<label>Prix</label>
+<input type="text" id="prix" placeholder="Prix">
+<br />
+<fieldset>
+  <legend>Options</legend>
+  <div id="options"><span><input type="text" placeholder="Nom"><input type="text" placeholder="Prix"><button>-</button></span></div>
+  <button id="ajouter_option">Ajouter une option</button>
+</fieldset>
+<br />
+<button id="enregistrer">Enregistrer</button>

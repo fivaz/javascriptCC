@@ -1,0 +1,43 @@
+<meta charset="utf-8" />
+<title>Vélos</title>
+<style>
+  body {
+    font : .8em "typewriter", sans-serif;
+  }
+</style>
+<script>
+  window.addEventListener('load', _=>{
+    let velos = [];
+    if (localStorage.getItem('velos')) {
+      velos = JSON.parse(localStorage.getItem('velos'));
+    }
+    if (velos.length==0) {
+      liste.innerHTML = "Aucun vélo disponible";
+    } else {
+      velos.forEach(v=>{
+        let p = document.createElement('p');
+        p.appendChild(document.createTextNode(v.categorie + ' ' + v.nom + ' ' + v.prix));
+        let ul = document.createElement('ul');
+        let li;
+        if (v.options.length==0) {
+          li = document.createElement('li');
+          li.appendChild(document.createTextNode('Aucune option disponible'));
+          ul.appendChild(li);
+        } else {
+          v.options.forEach(opt=>{
+            li = document.createElement('li');
+            li.appendChild(document.createTextNode(opt.nom + '' + opt.prix));
+            ul.appendChild(li);
+          });
+        }
+        p.appendChild(ul);
+        liste.appendChild(p);
+        console.log(v);
+      });
+    }
+  })
+
+</script>
+<h1>Commande de vélos</h1>
+<h2>En stock</h2>
+<div id="liste"></div>

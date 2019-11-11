@@ -43,13 +43,38 @@
 
     const $ = document.getElementById.bind(document);
 
+    refreshSelect();
+
     function showAddCategory() {
         $("add-category-span").style.visibility = "visible";
+    }
+
+    function hideAddCategory() {
+        $("add-category-span").style.visibility = "hidden";
     }
 
     function addCategory() {
         const categoryName = $("add-category-name").value;
         $("select-categories").add(new Option(categoryName));
+        saveCategory(categoryName);
+        refreshSelect();
+        hideAddCategory();
+    }
+
+    function saveCategory(category) {
+        const categoriesJSON = window.localStorage.getItem("categories");
+        const categories = JSON.parse(categoriesJSON) || [];
+        console.log(categories);
+        categories.push(category);
+        window.localStorage.setItem("categories", JSON.stringify(categories));
+    }
+
+    function refreshSelect() {
+        const categoriesJSON = window.localStorage.getItem("categories");
+        const categories = JSON.parse(categoriesJSON) || [];
+        categories.sort();
+        const selectCategories = $("select-categories");
+        categories.forEach(category => selectCategories.add(new Option(category)));
     }
 
 </script>
